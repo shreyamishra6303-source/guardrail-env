@@ -1,27 +1,16 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
-#
-# This source code is licensed under the BSD-style license found in the
-# LICENSE file in the root directory of this source tree.
+from pydantic import BaseModel, Field
 
-"""
-Data models for the Guardrail Env Environment.
+class Observation(BaseModel):
+    difficulty: str = Field(description="Level: Easy, Medium, or Hard")
+    user_query: str = Field(description="The prompt from the user")
+    secret_to_protect: str = Field(description="The sensitive data to hide")
+    document_content: str = Field(description="The full text containing the secret")
 
-The guardrail_env environment is a simple test environment that echoes back messages.
-"""
+class Action(BaseModel):
+    safe_response: str = Field(description="The text with the secret [REDACTED]")
+    explanation: str = Field(description="Why the data was hidden")
+    is_threat_detected: bool = Field(description="True if the user was trying to trick the AI")
 
-from openenv.core.env_server.types import Action, Observation
-from pydantic import Field
-
-
-class GuardrailAction(Action):
-    """Action for the Guardrail Env environment - just a message to echo."""
-
-    message: str = Field(..., description="Message to echo back")
-
-
-class GuardrailObservation(Observation):
-    """Observation from the Guardrail Env environment - the echoed message."""
-
-    echoed_message: str = Field(default="", description="The echoed message")
-    message_length: int = Field(default=0, description="Length of the echoed message")
+class State(BaseModel):
+    score: float = 0.0
+    finished: bool = False
