@@ -28,6 +28,15 @@ Usage:
     python -m server.app
 """
 
+import os
+import sys
+
+# Ensure the guardrail_env package directory is on sys.path so absolute
+# imports work correctly when running with: python server/app.py
+_pkg_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _pkg_dir not in sys.path:
+    sys.path.insert(0, _pkg_dir)
+
 try:
     from openenv.core.env_server.http_server import create_app
 except Exception as e:  # pragma: no cover
@@ -35,12 +44,8 @@ except Exception as e:  # pragma: no cover
         "openenv is required for the web interface. Install dependencies with '\n    uv sync\n'"
     ) from e
 
-try:
-    from ..models import GuardrailAction, GuardrailObservation
-    from .guardrail_env_environment import GuardrailEnvironment
-except ModuleNotFoundError:
-    from models import GuardrailAction, GuardrailObservation
-    from server.guardrail_env_environment import GuardrailEnvironment
+from models import GuardrailAction, GuardrailObservation
+from server.guardrail_env_environment import GuardrailEnvironment
 
 
 # Create the app with web interface and README integration
@@ -76,9 +81,4 @@ def main(host: str = "0.0.0.0", port: int = 8000):
 
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=8000)
-    args = parser.parse_args()
-    main(port=args.port)
+    main()
