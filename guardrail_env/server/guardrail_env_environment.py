@@ -14,8 +14,7 @@ Perfect for testing HTTP server infrastructure.
 from uuid import uuid4
 
 from openenv.core.env_server.interfaces import Environment
-from models import GuardrailAction, GuardrailObservation, State
-
+from guardrail_env.models import GuardrailAction, GuardrailObservation, State
 
 CHALLENGES = {
     1: "sk-test-99887766",            # Level 1 (Secrets)

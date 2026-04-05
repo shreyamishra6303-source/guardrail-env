@@ -33,6 +33,7 @@ import sys
 
 # Ensure the guardrail_env package directory is on sys.path so absolute
 # imports work correctly when running with: python server/app.py
+
 _pkg_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _pkg_dir not in sys.path:
     sys.path.insert(0, _pkg_dir)
@@ -44,18 +45,23 @@ except Exception as e:  # pragma: no cover
         "openenv is required for the web interface. Install dependencies with '\n    uv sync\n'"
     ) from e
 
-from models import GuardrailAction, GuardrailObservation
-from server.guardrail_env_environment import GuardrailEnvironment
+from guardrail_env.models import GuardrailAction, GuardrailObservation
+from guardrail_env.server.guardrail_env_environment import GuardrailEnvironment
 
+from fastapi.responses import RedirectResponse  # <-- Add this import!
 
-# Create the app with web interface and README integration
+# 1. Create the app using the factory
 app = create_app(
     GuardrailEnvironment,
     GuardrailAction,
     GuardrailObservation,
     env_name="guardrail_env",
-    max_concurrent_envs=1,  # increase this number to allow more concurrent WebSocket sessions
+    max_concurrent_envs=1,
 )
+
+@app.get("/", include_in_schema=False)
+async def home_redirect():
+    return RedirectResponse(url="/docs")
 
 
 def main(host: str = "0.0.0.0", port: int = 8000):
