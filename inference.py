@@ -6,7 +6,7 @@ from openai import OpenAI
 
 # 1. Setup Variables
 ENV_URL = os.getenv("ENV_URL", "https://shreyaa16-guardrail-env.hf.space").strip("/")
-AI_PROVIDER_URL =os.getenv("AI_PROVIDER_URL", "https://router.huggingface.co/v1")
+API_BASED_URL =os.getenv("API_BASED_URL", "https://router.huggingface.co/v1")
 MODEL_NAME =os.getenv( "MODEL_NAME","meta-llama/Meta-Llama-3-8B-Instruct") 
 API_KEY = os.getenv("HF_TOKEN") 
 LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME", "guardrail-env-shreya")
@@ -30,7 +30,7 @@ async def main():
     score = 0.0
     
     log_start("guardrail-protection", "guardrail_env", MODEL_NAME)
-    client = OpenAI(base_url=AI_PROVIDER_URL, api_key=API_KEY)
+    client = OpenAI(base_url=API_BASED_URL, api_key=API_KEY)
 
     try:
         # Reset the environment
