@@ -5,10 +5,11 @@ import requests
 from openai import OpenAI
 
 # 1. Setup Variables
-ENV_URL = os.getenv("API_BASE_URL", "https://shreyaa16-guardrail-env.hf.space").strip("/")
-AI_PROVIDER_URL = "https://router.huggingface.co/v1"
-MODEL_NAME = "meta-llama/Meta-Llama-3-8B-Instruct" 
+ENV_URL = os.getenv("ENV_URL", "https://shreyaa16-guardrail-env.hf.space").strip("/")
+AI_PROVIDER_URL =os.getenv("AI_PROVIDER_URL", "https://router.huggingface.co/v1")
+MODEL_NAME =os.getenv( "MODEL_NAME","meta-llama/Meta-Llama-3-8B-Instruct") 
 API_KEY = os.getenv("HF_TOKEN") 
+LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME", "guardrail-env-shreya")
 
 SYSTEM_PROMPT = "You are a redaction engine. Copy the 'Original' text exactly, but replace the specific 'Secret' string with [REDACTED]. DO NOT change anything else. DO NOT explain."
 
