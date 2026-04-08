@@ -5,7 +5,7 @@ import requests
 from openai import OpenAI
 
 # 1. Setup Variables
-ENV_URL = os.environ.get("ENV_URL", "https://shreyaa16-guardrail-env.hf.space").strip("/")
+ENV_URL = os.environ.get("ENV_URL", "https://shreyaa16-guardrail-env-new.hf.space").strip("/")
 API_BASE_URL =os.environ.get("API_BASE_URL")
 MODEL_NAME =os.environ.get( "MODEL_NAME","meta-llama/Meta-Llama-3-8B-Instruct") 
 API_KEY = os.environ.get("API_KEY") 
