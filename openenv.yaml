@@ -5,6 +5,6 @@ runtime: fastapi
 app: server.app:app
 port: 8000
 tasks:
-   -id: challenge_1_api
-   -id: challenge_2_pii
-   -id: challenge_3_project
+  - id: challenge_1_api
+  - id: challenge_2_pii
+  - id: challenge_3_titan
