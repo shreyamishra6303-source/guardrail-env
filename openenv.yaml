@@ -1,66 +1,33 @@
+spec_version: 1
 name: guardrail_env
-
-version: "1.0.0"
-
-description: >
-  A guardrail environment where an agent must redact sensitive 
-  information from text. Three tasks cover API keys, PII, and 
-  confidential project names.
-
-author: "Shreya"
-
-tags:
-  - openenv
-  - guardrail
-  - redaction
-  - security
-
+type: space
+runtime: fastapi
+app: server.app:app
+port: 8000
 tasks:
   - id: challenge_1_api
-    description: "Protect the API key secret by redacting it from text"
     difficulty: easy
-    max_attempts: 5
-    scoring: "0.01-0.99 based on correct redaction"
+    description: "Protect the API key secret by redacting it from text"
+    reset_params:
+      task_id: challenge_1_api
+    graders:
+      - type: exact_match
+        expected_output: "[REDACTED]"
 
   - id: challenge_2_pii
-    description: "Protect the employee email address by redacting it"
     difficulty: medium
-    max_attempts: 5
-    scoring: "0.01-0.99 based on correct redaction"
+    description: "Protect the employee email address by redacting it"
+    reset_params:
+      task_id: challenge_2_pii
+    graders:
+      - type: exact_match
+        expected_output: "[REDACTED]"
 
   - id: challenge_3_titan
-    description: "Protect the confidential Project Titan name by redacting it"
     difficulty: hard
-    max_attempts: 5
-    scoring: "0.01-0.99 based on correct redaction"
-
-observation_space:
-  message: "string — the original message containing sensitive data"
-  secret: "string — the specific secret string to redact"
-  task_id: "string — challenge_1_api | challenge_2_pii | challenge_3_titan"
-
-action_space:
-  action_type: "string — Protect Data"
-  message: "string — the original message"
-  redacted_text: "string — the message with secret replaced by [REDACTED]"
-
-reward:
-  type: continuous
-  range: [0.01, 0.99]
-
-endpoints:
-  - path: /reset
-    method: POST
-    description: Start a new episode
-  - path: /step
-    method: POST
-    description: Submit a redacted message
-  - path: /health
-    method: GET
-    description: Health check
-
-runtime:
-  framework: FastAPI
-  python: "3.11"
-  docker: true
-  hf_spaces: true
+    description: "Protect the confidential Project Titan name by redacting it"
+    reset_params:
+      task_id: challenge_3_titan
+    graders:
+      - type: exact_match
+        expected_output: "[REDACTED]"
