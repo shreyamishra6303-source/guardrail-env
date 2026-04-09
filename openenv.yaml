@@ -11,8 +11,8 @@ tasks:
     reset_params:
       task_id: challenge_1_api
     grader:
-      - type: exact_match
-        expected_output: "[REDACTED]" # Or whatever satisfies the strict schema
+      - type: reward_threshold
+        threshold: 0.5
 
   - id: challenge_2_pii
     difficulty: medium
@@ -20,8 +20,8 @@ tasks:
     reset_params:
       task_id: challenge_2_pii
     grader:
-      - type: exact_match
-        expected_output: "[REDACTED]"
+      - type: reward_threshold
+        threshold: 0.5
 
   - id: challenge_3_titan
     difficulty: hard
@@ -29,6 +29,5 @@ tasks:
     reset_params:
       task_id: challenge_3_titan
     grader:
-      - type: exact_match
-        expected_output: "[REDACTED]"
-  
+      - type: reward_threshold
+        threshold: 0.5
