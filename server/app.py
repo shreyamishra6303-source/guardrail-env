@@ -18,8 +18,8 @@ except Exception as e:
         "openenv is required for the web interface. Install dependencies with '\n    uv sync\n'"
     ) from e
 
-from guardrail_env.models import GuardrailAction, GuardrailObservation
-from guardrail_env.server.guardrail_env_environment import GuardrailEnvironment
+from models import GuardrailAction, GuardrailObservation
+from server.guardrail_env_environment import GuardrailEnvironment
 from fastapi.responses import RedirectResponse, JSONResponse
 from fastapi import Request
 
