@@ -1600,7 +1600,7 @@ core = [
 
 [[package]]
 name = "openenv-guardrail-env"
-version = "0.1.0"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "openenv-core", extra = ["core"] },
